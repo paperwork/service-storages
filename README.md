@@ -34,10 +34,14 @@ Compiling:
 
 ## Running
 
-First, we need a database. Let's run MongoDB on Docker:
+First, we need a database and an object store. Let's run MongoDB and Minio on Docker:
 
 ```bash
 % docker run -it --rm --name mongodb -p 27017:27017 mongo:latest
+```
+
+```bash
+% docker run -it --rm --name minio -e 'MINIO_ACCESS_KEY=root' -e 'MINIO_SECRET_KEY=roooooot' -p 9000:9000 minio/minio:latest server /data
 ```
 
 Second, we need to run [service-gatekeeper](https://github.com/paperwork/service-gatekeeper). Please refer to its documentation.
