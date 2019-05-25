@@ -21,8 +21,9 @@ defmodule Paperwork.Storages.S3 do
         end
     end
 
-    def object_download(bucket, key) do
-        tmpfile = Plug.Upload.random_file!(key)
+    def object_download(bucket, key, tmpfile) do
+        # tmpfile = Plug.Upload.random_file!(key)
+
         case bucket
             |> ExAws.S3.download_file(key, tmpfile)
             |> ExAws.request(Paperwork.Storages.storage_config()) \

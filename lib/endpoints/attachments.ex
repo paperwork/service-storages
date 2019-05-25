@@ -80,11 +80,10 @@ defmodule Paperwork.Storages.Endpoints.Attachments do
 
                 {:ok, attachment} = response
                 {:ok, %{"id" => _id, "access" => %{^global_id => %{"can_read" => true}}}} = Paperwork.Internal.Request.note(attachment.note_id)
+                {:ok, tmpfile} = Briefly.create
 
-                case Paperwork.Storages.S3.object_download(attachment.note_id, attachment.id |> BSON.ObjectId.encode!()) do
-                    {:ok, tmpfile} ->
-                        # TODO: Remove tmpfile after it was downloaded
-
+                case Paperwork.Storages.S3.object_download(attachment.note_id, attachment.id |> BSON.ObjectId.encode!(), tmpfile) do
+                    {:ok, _} ->
                         conn
                         |> put_resp_content_type(attachment.content_type)
                         |> put_resp_header("content-disposition", "attachment; filename=#{attachment.filename}")

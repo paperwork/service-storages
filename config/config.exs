@@ -33,6 +33,9 @@ config :ex_aws, :s3,
     host: "",
     region: ""
 
+config :briefly,
+    default_prefix: "paperwork"
+
 config :paperwork, :storage,
     endpoint: {:system, :string, "STORAGE_URL", "http://localhost:9000"},
     region: "",
