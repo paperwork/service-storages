@@ -34,10 +34,10 @@ config :ex_aws, :s3,
     region: ""
 
 config :paperwork, :storage,
-  endpoint: {:system, :string, "STORAGE_URL", "http://localhost:9000"},
-  region: "",
-  access_key_id: {:system, :string, "AWS_ACCESS_KEY_ID", "root"},
-  secret_access_key: {:system, :string, "AWS_SECRET_ACCESS_KEY", "roooooot"}
+    endpoint: {:system, :string, "STORAGE_URL", "http://localhost:9000"},
+    region: "",
+    access_key_id: {:system, :string, "AWS_ACCESS_KEY_ID", "root"},
+    secret_access_key: {:system, :string, "AWS_SECRET_ACCESS_KEY", "roooooot"}
 
 config :logger,
     backends: [:console]
