@@ -42,7 +42,11 @@ defmodule Paperwork.Storages.Endpoints.ProfilePhotos do
 
             {:ok, %{"id" => user_id}} = Paperwork.Internal.Request.user(global_id)
 
-            # TODO: Check database for previous profile photo for this user and remove from database and from storage?
+            Mogrify.open(file.path)
+            |> Mogrify.gravity("Center")
+            |> Mogrify.resize_to_fill("1024x1024")
+            |> Mogrify.format("png")
+            |> Mogrify.save(in_place: true)
 
             pre_generated_id =
                 Mongo.object_id()
@@ -55,6 +59,8 @@ defmodule Paperwork.Storages.Endpoints.ProfilePhotos do
                         |> Map.put(:id, pre_generated_id)
                         |> Map.put(:user_id, user_id)
                         |> Paperwork.Collections.ProfilePhoto.create(global_id)
+
+                    # TODO: Check database for previous profile photo for this user and remove from database and from storage?
 
                     conn
                     |> resp(response)

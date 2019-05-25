@@ -35,6 +35,7 @@ defmodule Paperwork.Storages.MixProject do
             {:sweet_xml, "~> 0.6.6"},
             {:hackney, "~> 1.15"},
             {:briefly, git: "https://github.com/CargoSense/briefly.git"},
+            {:mogrify, "~> 0.7.2"},
             {:distillery, "~> 2.0"},
             {:exsync, "~> 0.2", only: :dev}
         ]
