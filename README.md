@@ -34,6 +34,19 @@ Compiling:
 
 ## Running
 
+In order to run this service, we need to install the dependencies it has:
+
+```bash
+$ # on macOS
+$ brew install imagemagick
+$ # on Ubuntu Linux
+$ apt-get install imagemagick
+```
+
+For all other operating systems, check the [ImageMagick site](https://imagemagick.org/script/download.php).
+
+Atfer that, we can initialize the service this service depends on.
+
 First, we need a database and an object store. Let's run MongoDB and Minio on Docker:
 
 ```bash
