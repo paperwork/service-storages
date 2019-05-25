@@ -44,7 +44,7 @@ defmodule Paperwork.Storages.Endpoints.Attachments do
             file =
                 params[:file]
 
-            # TODO: Perform internal request to note_id and check whether note.access contains global_id and whether it has can_write == true
+            {:ok, %{"id" => _id, "access" => %{^global_id => %{"can_write" => true}}}} = Paperwork.Internal.Request.note(note_id)
 
             pre_generated_id =
                 Mongo.object_id()
@@ -63,7 +63,6 @@ defmodule Paperwork.Storages.Endpoints.Attachments do
                     |> resp(response)
             else
                 _ ->
-                    # TODO: Remove the database entry
                     conn
                     |> resp({:error, %{status: 1, content: "Could not upload file to internal storage!"}})
             end
@@ -80,11 +79,12 @@ defmodule Paperwork.Storages.Endpoints.Attachments do
                     |> Paperwork.Collections.Attachment.show()
 
                 {:ok, attachment} = response
-
-                # TODO: Perform internal request to response.note_id and check whether note.access contains global_id and whether it has can_read == true
+                {:ok, %{"id" => _id, "access" => %{^global_id => %{"can_read" => true}}}} = Paperwork.Internal.Request.note(attachment.note_id)
 
                 case Paperwork.Storages.S3.object_download(attachment.note_id, attachment.id |> BSON.ObjectId.encode!()) do
                     {:ok, tmpfile} ->
+                        # TODO: Remove tmpfile after it was downloaded
+
                         conn
                         |> put_resp_content_type(attachment.content_type)
                         |> put_resp_header("content-disposition", "attachment; filename=#{attachment.filename}")
