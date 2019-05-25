@@ -26,6 +26,7 @@ defmodule Paperwork.Storages do
         end
 
         mount Paperwork.Storages.Endpoints.Attachments
+        mount Paperwork.Storages.Endpoints.ProfilePhotos
     end
 
     # TODO: Try to get rid of all this and define it within Paperwork.ex
