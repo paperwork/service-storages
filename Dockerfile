@@ -47,7 +47,8 @@ ARG APP_NAME
 RUN apk update && \
     apk add --no-cache \
       bash \
-      openssl-dev
+      openssl-dev \
+      imagemagick
 
 ENV REPLACE_OS_VARS=true \
     APP_NAME=${APP_NAME}
