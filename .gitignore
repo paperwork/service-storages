@@ -25,3 +25,4 @@ storages-*.tar
 *.sublime-workspace
 /.elixir_ls
 .DS_Store
+/log
