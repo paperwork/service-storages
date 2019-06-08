@@ -58,6 +58,7 @@ defmodule Paperwork.Storages.Endpoints.Attachments do
                         |> Map.put(:filename, file.filename)
                         |> Map.put(:content_type, file.content_type)
                         |> Paperwork.Collections.Attachment.create(global_id)
+                        |> Paperwork.Helpers.Journal.api_response_to_journal(params, :create, :attachment, :user, global_id, [global_id |> Paperwork.Id.from_gid()])
 
                     conn
                     |> resp(response)
