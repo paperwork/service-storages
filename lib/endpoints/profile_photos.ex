@@ -59,6 +59,7 @@ defmodule Paperwork.Storages.Endpoints.ProfilePhotos do
                         |> Map.put(:id, pre_generated_id)
                         |> Map.put(:user_id, user_id)
                         |> Paperwork.Collections.ProfilePhoto.create(global_id)
+                        |> Paperwork.Helpers.Journal.api_response_to_journal(params, :create, :profile_photo, :user, global_id, [global_id |> Paperwork.Id.from_gid()])
 
                     # TODO: Check database for previous profile photo for this user and remove from database and from storage?
 
