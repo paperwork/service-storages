@@ -18,49 +18,35 @@ On MacOS using [brew](https://brew.sh):
 % brew install elixir
 ```
 
-## Building
-
-Fetching all dependencies:
-
-```bash
-% mix deps.get
-```
-
-Compiling:
-
-```bash
-% mix compile
-```
-
-## Running
+### ImageMagick
 
 In order to run this service, we need to install the dependencies it has:
 
 ```bash
 $ # on macOS
 $ brew install imagemagick
-$ # on Ubuntu Linux
-$ apt-get install imagemagick
+$ # on Debian/Ubuntu Linux
+$ apt install imagemagick
 ```
 
 For all other operating systems, check the [ImageMagick site](https://imagemagick.org/script/download.php).
 
-Atfer that, we can initialize the service this service depends on.
+### Paperwork local development environment
 
-First, we need a database and an object store. Let's run MongoDB and Minio on Docker:
+Please refer to the [documentation](https://github.com/paperwork/paperwork/#local-development-environment).
+
+## Building
+
+Fetching all dependencies and compiling:
 
 ```bash
-% docker run -it --rm --name mongodb -p 27017:27017 mongo:latest
+% make local-build-develop
 ```
 
-```bash
-% docker run -it --rm --name minio -e 'MINIO_ACCESS_KEY=root' -e 'MINIO_SECRET_KEY=roooooot' -p 9000:9000 minio/minio:latest server /data
-```
+## Running
 
-Second, we need to run [service-gatekeeper](https://github.com/paperwork/service-gatekeeper). Please refer to its documentation.
-
-Then we can run this service from within this cloned repository:
+**Note:** Before starting this service the local development environment needs to be running!
 
 ```bash
-% iex -S mix
+% make local-run-develop
 ```
